@@ -14,9 +14,9 @@
         dest: /opt/node-01/
 
     - name: Docker compose up
-      community.docker.docker_compose_v2:
-        project_src: /opt/node-01
-        state: present
+      shell: docker compose up -d
+      args:
+        chdir: /opt/node-01
 
 - name: Deploy node-02 (logging)
   hosts: logging
@@ -33,9 +33,9 @@
         dest: /opt/node-02/
 
     - name: Docker compose up
-      community.docker.docker_compose_v2:
-        project_src: /opt/node-02
-        state: present
+      shell: docker compose up -d
+      args:
+        chdir: /opt/node-02
 
 - name: Deploy node-03 (app)
   hosts: app
@@ -52,9 +52,9 @@
         dest: /opt/node-03/
 
     - name: Docker compose up
-      community.docker.docker_compose_v2:
-        project_src: /opt/node-03
-        state: present
+      shell: docker compose up -d
+      args:
+        chdir: /opt/node-03
 
 - name: Deploy node-04 (automation)
   hosts: automation
@@ -71,6 +71,6 @@
         dest: /opt/node-04/
 
     - name: Docker compose up
-      community.docker.docker_compose_v2:
-        project_src: /opt/node-04
-        state: present
+      shell: docker compose up -d
+      args:
+        chdir: /opt/node-04
