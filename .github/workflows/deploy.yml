@@ -20,15 +20,10 @@ jobs:
           chmod 600 ~/.ssh/docker.pem
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
 
-      - name: Install Ansible
+      - name: Deploy via node-04
         run: |
-          sudo apt update
-          sudo apt install -y ansible
-
-      - name: Install Ansible docker collection
-        run: |
-          ansible-galaxy collection install community.docker
-
-      - name: Run Ansible Playbook
-        run: |
-          ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
+          ssh -i ~/.ssh/docker.pem ubuntu@${{ secrets.NODE04_IP }} << 'ENDSSH'
+            cd ~/auto-ops-platform
+            git pull origin main
+            ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
+          ENDSSH
