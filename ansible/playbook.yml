@@ -1,0 +1,76 @@
+---
+- name: Deploy node-01 (monitoring)
+  hosts: monitoring
+  become: true
+  tasks:
+    - name: Create app directory
+      file:
+        path: /opt/node-01
+        state: directory
+
+    - name: Copy docker-compose files
+      copy:
+        src: ../docker/node-01/
+        dest: /opt/node-01/
+
+    - name: Docker compose up
+      community.docker.docker_compose_v2:
+        project_src: /opt/node-01
+        state: present
+
+- name: Deploy node-02 (logging)
+  hosts: logging
+  become: true
+  tasks:
+    - name: Create app directory
+      file:
+        path: /opt/node-02
+        state: directory
+
+    - name: Copy docker-compose files
+      copy:
+        src: ../docker/node-02/
+        dest: /opt/node-02/
+
+    - name: Docker compose up
+      community.docker.docker_compose_v2:
+        project_src: /opt/node-02
+        state: present
+
+- name: Deploy node-03 (app)
+  hosts: app
+  become: true
+  tasks:
+    - name: Create app directory
+      file:
+        path: /opt/node-03
+        state: directory
+
+    - name: Copy docker-compose files
+      copy:
+        src: ../docker/node-03/
+        dest: /opt/node-03/
+
+    - name: Docker compose up
+      community.docker.docker_compose_v2:
+        project_src: /opt/node-03
+        state: present
+
+- name: Deploy node-04 (automation)
+  hosts: automation
+  become: true
+  tasks:
+    - name: Create app directory
+      file:
+        path: /opt/node-04
+        state: directory
+
+    - name: Copy docker-compose files
+      copy:
+        src: ../docker/node-04/
+        dest: /opt/node-04/
+
+    - name: Docker compose up
+      community.docker.docker_compose_v2:
+        project_src: /opt/node-04
+        state: present
