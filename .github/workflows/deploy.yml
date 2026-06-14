@@ -22,8 +22,5 @@ jobs:
 
       - name: Deploy via node-04
         run: |
-          ssh -i ~/.ssh/docker.pem ubuntu@${{ secrets.NODE04_IP }} << 'ENDSSH'
-            cd ~/auto-ops-platform
-            git pull origin main
-            ansible-playbook -i ansible/inventory.ini ansible/playbook.yml
-          ENDSSH
+          ssh -i ~/.ssh/docker.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.NODE04_IP }} \
+            "cd ~/auto-ops-platform && git pull origin main && ansible-playbook -i ansible/inventory.ini ansible/playbook.yml"
